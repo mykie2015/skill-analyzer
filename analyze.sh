@@ -34,6 +34,7 @@ fi
 
 GITHUB_URL="https://github.com/${OWNER}/${REPO}"
 CLONE_DIR="/tmp/skill-analyzer-${REPO}-$$"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo -e "${BLUE}🔍 Analyzing skill: ${OWNER}/${REPO}${NC}"
 
@@ -138,9 +139,14 @@ fi
 [ -z "$USE_CASES" ] && USE_CASES="<p>Check the repository for examples and use cases.</p>"
 
 # Generate HTML report
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TEMPLATE_FILE="$SCRIPT_DIR/template.html"
 OUTPUT_FILE="$SCRIPT_DIR/reports/${REPO}.html"
+
+# Ensure template exists
+if [ ! -f "$TEMPLATE_FILE" ]; then
+    echo -e "${RED}Template file not found: $TEMPLATE_FILE${NC}"
+    exit 1
+fi
 
 echo -e "${BLUE}📝 Generating HTML report...${NC}"
 
