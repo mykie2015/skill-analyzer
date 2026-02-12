@@ -1,2 +1,3 @@
 # Skill Analyzer reports
 reports/*.html
+!reports/baoyu-skills.html
